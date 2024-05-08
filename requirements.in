@@ -1,0 +1,9 @@
+django>=5.0,<5.1
+django-environ
+django-debug-toolbar
+whitenoise
+gunicorn
+psycopg[binary]
+pytest
+pytest-django
+rich
