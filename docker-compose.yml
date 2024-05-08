@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   app:
-    image: ghcr.io/stuartmaxwell/stuartmnz:latest
+    image: ghcr.io/stuartmaxwell/mydjangox:latest
     entrypoint: /app/entrypoint.sh
     restart: always
     command: gunicorn --worker-tmp-dir /dev/shm --workers=2 --worker-class=gthread --bind 0.0.0.0:8000 config.wsgi
