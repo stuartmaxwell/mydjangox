@@ -13,8 +13,8 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 ## Installation
 
-1. Git clone this repository: `git clone ...`
-2. Change directory into the repo: `cd mydjangox`
+1. Git clone this repository: `git clone --depth=1 git@github.com:stuartmaxwell/mydjangox.git <your_project_name>`
+2. Change directory into the repo: `cd <your_project_name>`
 3. Create a virtual environment: e.g. `uv venv`
 4. Activate the virtual environment: `source .venv/bin/activate`
 5. Compile the requirements: e.g. `uv pip compile --upgrade requirements.in -o requirements.txt`
@@ -23,6 +23,7 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 8. Create a superuser: `python manage.py createsuperuser`
 9. Start the server: `python manage.py runserver`
 10. Navigate to: <http://127.0.0.1:8000>
+11. Bonus: run `pytest` to see if everything is working.
 
 ## More Configuration
 
