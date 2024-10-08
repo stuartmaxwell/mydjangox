@@ -2,7 +2,7 @@
 #    uv pip compile requirements.in -o requirements.txt
 asgiref==3.8.1
     # via django
-django==5.0.7
+django==5.0.9
     # via
     #   -r requirements.in
     #   django-debug-toolbar
@@ -24,7 +24,7 @@ packaging==24.1
     #   pytest
 pluggy==1.5.0
     # via pytest
-psycopg==3.2.1
+psycopg[binary]==3.2.1
     # via -r requirements.in
 psycopg-binary==3.2.1
     # via psycopg
