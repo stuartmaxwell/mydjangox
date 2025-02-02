@@ -20,7 +20,7 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 ## Installation
 
-1. Download and unzip the code: <https://github.com/stuartmaxwell/mydjangox/archive/refs/heads/main.zip>
+1. Download and unzip the code: `curl https://codeload.github.com/stuartmaxwell/mydjangox/zip/refs/heads/main -o mydjangox.zip`
 2. Rename the directory from `mydjangox-main` to your project name
 3. Change directory into the repo: `cd <your_project_name>`
 4. Create a virtual environment. This will also download Python if needed: `just venv`
