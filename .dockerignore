@@ -1,0 +1,53 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Docker
+.dockerignore
+docker-compose*
+Dockerfile*
+
+# Git
+.git/
+.github/
+.gitignore
+
+# Virtual Environment
+.venv/
+
+# IDEs and editors
+.idea
+.vscode
+.editorconfig
+
+# Tool configuration
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.pre-commit-config.yaml
+.prettierignore
+# pyproject.toml
+pytest.ini
+.dmypy.json
+dmypy.json
+
+# Caddy config
+Caddyfile*
+
+# Project files not required
+docs/
+staticfiles/
+env.template
+requirements.in
+README.md
+media/
+.env
+
+# Macos yuck
+.DS_Store
+
+# Other files that sometimes creep in
+**/*.sqlite3
+**/*.csv
+**/*.log

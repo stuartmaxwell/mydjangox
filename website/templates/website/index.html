@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Website{% endblock title %}
+{% block title %}Website{% endblock %}
 
 {% block content %}
   <h1>Welcome!</h1>
   <p>This is the homepage of the website.</p>
+  <p>You can configure a health check for the website by visiting the <a href="{% url 'healthcheck_app:healthcheck' %}">healthcheck</a> page.</p>
 {% endblock content %}

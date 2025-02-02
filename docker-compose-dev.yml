@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    entrypoint: /app/entrypoint.sh
+    command: uv run --no-cache manage.py runserver 0.0.0.0:8000
+    user: "1000"
+    ports:
+      - "8000:8000"

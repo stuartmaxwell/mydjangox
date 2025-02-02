@@ -1,14 +1,12 @@
-version: "3.8"
-
 services:
   app:
-    image: ghcr.io/stuartmaxwell/mydjangox:latest
+    build: .
     entrypoint: /app/entrypoint.sh
-    restart: always
-    command: gunicorn --worker-tmp-dir /dev/shm --workers=2 --worker-class=gthread --bind 0.0.0.0:8000 config.wsgi
+    command: uv run --no-cache gunicorn --worker-class uvicorn_worker.UvicornWorker --worker-tmp-dir /dev/shm --workers=2 --max-requests=1000 --max-requests-jitter=50 --bind 0.0.0.0:8000 config.asgi:application
     user: "1000"
+    env_file: .env
     volumes:
-      - static_volume:/app
+      - app_db:/app/db
 
 volumes:
-  static_volume:
+  app_db:

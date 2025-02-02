@@ -4,26 +4,33 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 ## Features
 
-- Django 5.0.latest & Python 3.12.latest
+- Django 5.x & Python 3.x
 - Basic first app called `website`
 - Basic template with Bootstrap
 - Dockerfile and docker-compose file
-- Github Actions workflow to build the Docker file
 - Lots of other config inspired by [Adam Johnson's Boost Your Django DX book](https://adamchainz.gumroad.com/l/byddx)
+
+## Requirements
+
+- `uv` - `curl -LsSf https://astral.sh/uv/install.sh | sh`
+
+### Optional
+
+- `just` - `uv tool install rust-just`
 
 ## Installation
 
-1. Git clone this repository: `git clone --depth=1 git@github.com:stuartmaxwell/mydjangox.git <your_project_name>`
-2. Change directory into the repo: `cd <your_project_name>`
-3. Create a virtual environment: e.g. `uv venv`
-4. Activate the virtual environment: `source .venv/bin/activate`
-5. Compile the requirements: e.g. `uv pip compile --upgrade requirements.in -o requirements.txt`
-6. Install requirements: e.g. `uv pip sync requirements.txt`
-7. Run the Django migrations: `python manage.py migrate`
-8. Create a superuser: `python manage.py createsuperuser`
-9. Start the server: `python manage.py runserver`
+1. Download and unzip the code: <https://github.com/stuartmaxwell/mydjangox/archive/refs/heads/main.zip>
+2. Rename the directory from `mydjangox-main` to your project name
+3. Change directory into the repo: `cd <your_project_name>`
+4. Create a virtual environment. This will also download Python if needed: `just venv`
+5. Install requirements: `just sync`
+6. Optional: update requirements: `just sync-up`
+7. Run the Django migrations: `just migrate`
+8. Create a superuser: `just createsuperuser`
+9. Start the server: `just run`
 10. Navigate to: <http://127.0.0.1:8000>
-11. Bonus: run `pytest` to see if everything is working.
+11. Bonus: run `just test` to see if everything is working.
 
 ## More Configuration
 
@@ -48,12 +55,3 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
   | DB_PASSWORD         | The password for the database server username.                                                     |
   | WHITENOISE_STATIC   | Boolean value that turns on Whitenoise for serving static content.                                 |
   | ADMIN_URL           | The path to the Admin site so it can be hidden from easily being guessed.                          |
-
-## Github Action
-
-- Configure the following repository secrets:
-
-  - `TOKEN_GITHUB`: This should be a personal access token with read and write permissions for the repo.
-  - `DOCKER_WEBHOOK`: This is a webhook that will be called after the image has been created. Useful for kicking off an automation to restart and re-pull the image. If you don't want to use this, delete the `Send POST request to webhook` action from the workflow in the `docker-image.yml` file.
-
-- Push to Github `main` branch to kick off the workflow.

@@ -3,7 +3,9 @@
 from pathlib import Path
 
 import environ
+import sentry_sdk
 from django.contrib.messages import constants as messages
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -12,6 +14,9 @@ env = environ.Env(
     SECRET_KEY=(str, "this_is_just_a_temporary_secret_key"),
     DEBUG=(bool, True),
     ALLOWED_HOSTS=(list, ["127.0.0.1"]),
+    SENTRY_DSN=(str, ""),
+    SENTRY_ENVIRONMENT=(str, "development"),
+    SENTRY_TRACES_SAMPLE_RATE=(float, 0.1),
     EMAIL_HOST=(str, ""),
     EMAIL_PORT=(str, ""),
     EMAIL_HOST_USER=(str, ""),
@@ -26,9 +31,21 @@ env = environ.Env(
     DB_PORT=(str, ""),
     WHITENOISE_STATIC=(bool, True),
     ADMIN_URL=(str, "admin"),
+    HEALTHCHECK_PATH=(str, "secret-health-check"),
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
+
+SENTRY_DSN = env("SENTRY_DSN")
+if SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=env("SENTRY_DSN"),
+        integrations=[DjangoIntegration()],
+        environment=str(env("SENTRY_ENVIRONMENT")),
+        traces_sample_rate=env("SENTRY_TRACES_SAMPLE_RATE"),
+    )
+
+APP_NAME = "MyDjangoX"
 
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
@@ -43,6 +60,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "healthcheck_app",
     "website",
 ]
 
@@ -101,11 +119,20 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
-if "sqlite" in env("DB_ENGINE"):
-    DB_NAME = BASE_DIR / f"{env('DB_NAME')}.sqlite3"
-else:
-    DB_NAME = env("DB_NAME")
-
+DB_NAME = BASE_DIR / "db" / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
+SQLITE_OPTIONS = {
+    "init_command": (
+        "PRAGMA foreign_keys=ON;"
+        "PRAGMA journal_mode = WAL;"
+        "PRAGMA synchronous = NORMAL;"
+        "PRAGMA busy_timeout = 5000;"
+        "PRAGMA temp_store = MEMORY;"
+        "PRAGMA mmap_size = 134217728;"
+        "PRAGMA journal_size_limit = 67108864;"
+        "PRAGMA cache_size = 2000;"
+    ),
+    "transaction_mode": "IMMEDIATE",
+}
 DATABASES = {
     "default": {
         "ENGINE": env("DB_ENGINE"),
@@ -116,14 +143,13 @@ DATABASES = {
         "PORT": env("DB_PORT"),
     },
 }
-
+if "sqlite" in env("DB_ENGINE"):
+    DATABASES["default"].update(SQLITE_OPTIONS)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": (
-            "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-        ),
+        "NAME": ("django.contrib.auth.password_validation.UserAttributeSimilarityValidator"),
     },
     {
         "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
@@ -137,7 +163,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
 LANGUAGE_CODE = "en-nz"
 TIME_ZONE = "Pacific/Auckland"
 USE_I18N = True
@@ -210,3 +235,15 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+# Use secure cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# HSTS settings
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# Healthcheck app
+HEALTHCHECK_PATH = env("HEALTHCHECK_PATH")

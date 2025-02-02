@@ -1,4 +1,4 @@
-"""Settings for running tests."""
+"""Django settings for running tests."""
 
 from .settings import *  # noqa: F403, F401, RUF100
 
@@ -9,3 +9,7 @@ DATABASES = {
         "NAME": ":memory:",
     },
 }
+
+PASSWORD_HASHERS: list[str] = [
+    "django.contrib.auth.hashers.MD5PasswordHasher",
+]

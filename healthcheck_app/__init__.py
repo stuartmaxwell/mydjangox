@@ -1,0 +1,1 @@
+"""healthcheck_app package."""
