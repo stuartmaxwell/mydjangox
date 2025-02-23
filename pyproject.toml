@@ -5,15 +5,14 @@ description = "My Django project template. Inspired by Will Vincent's DjangoX."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-  "django>=5.1.5",
-  "django-debug-toolbar>=5.0.1",
-  "django-environ>=0.12.0",
-  "gunicorn>=23.0.0",
-  "pytest>=8.3.4",
-  "pytest-django>=4.9.0",
-  "rich>=13.9.4",
-  "sentry-sdk>=2.20.0",
-  "whitenoise>=6.8.2",
+  "django>=5.1",
+  "django-debug-toolbar>=5.0",
+  "django-environ>=0.12",
+  "gunicorn>=23.0",
+  "pytest>=8.3",
+  "pytest-django>=4.10",
+  "rich>=13.9",
+  "whitenoise>=6.9",
 ]
 
 [tool.curlylint.rules]
@@ -37,33 +36,25 @@ ignore = [
 # Allow fix for all enabled rules (when `--fix`) is provided.
 fixable = ["ALL"]
 unfixable = []
-
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 [tool.ruff.format]
 # Like Black, use double quotes for strings.
 quote-style = "double"
-
 # Like Black, indent with spaces, rather than tabs.
 indent-style = "space"
-
 # Like Black, respect magic trailing commas.
 skip-magic-trailing-comma = false
-
 # Like Black, automatically detect the appropriate line ending.
 line-ending = "auto"
-
 # Enable auto-formatting of code examples in docstrings. Markdown,
 # reStructuredText code/literal blocks and doctests are all supported.
-#
 # This is currently disabled by default, but it is planned for this
 # to be opt-out in the future.
 docstring-code-format = false
-
 # Set the line length limit used when formatting code snippets in
 # docstrings.
-#
 # This only has an effect when the `docstring-code-format` setting is
 # enabled.
 docstring-code-line-length = "dynamic"
