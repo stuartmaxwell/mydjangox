@@ -4,7 +4,7 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 ## Features
 
-- Django 5.x & Python 3.x
+- Django 5.1 & Python 3.13
 - Basic first app called `website`
 - Basic template with Bootstrap
 - Dockerfile and docker-compose file
@@ -12,13 +12,25 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 ## Requirements
 
+`uv` is required, and `just` is recommended to use the commands in the `justfile`.
+
 - `uv` - `curl -LsSf https://astral.sh/uv/install.sh | sh`
-
-### Optional
-
 - `just` - `uv tool install rust-just`
 
 ## Installation
+
+### Recommended instructions
+
+1. Create the directory where you want your project to live and change to that directory.
+2. Then, run the following one-liner which will create a django project using the MyDjangoX template:
+    `uvx --from django django-admin startproject --template https://github.com/stuartmaxwell/mydjangox/archive/refs/heads/main.zip mydjangox .`
+3. Run the Django migrations: `just migrate`
+4. Create a superuser: `just createsuperuser`
+5. Start the server: `just run`
+6. Navigate to: <http://127.0.0.1:8000>
+7. Bonus: run `just test` to see if everything is working.
+
+### Old Manual instructions
 
 1. Download and unzip the code: `curl https://codeload.github.com/stuartmaxwell/mydjangox/zip/refs/heads/main -o mydjangox.zip`
 2. Rename the directory from `mydjangox-main` to your project name
