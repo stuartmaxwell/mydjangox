@@ -3,9 +3,7 @@
 from pathlib import Path
 
 import environ
-import sentry_sdk
 from django.contrib.messages import constants as messages
-from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -14,9 +12,6 @@ env = environ.Env(
     SECRET_KEY=(str, "this_is_just_a_temporary_secret_key"),
     DEBUG=(bool, True),
     ALLOWED_HOSTS=(list, ["127.0.0.1"]),
-    SENTRY_DSN=(str, ""),
-    SENTRY_ENVIRONMENT=(str, "development"),
-    SENTRY_TRACES_SAMPLE_RATE=(float, 0.1),
     EMAIL_HOST=(str, ""),
     EMAIL_PORT=(str, ""),
     EMAIL_HOST_USER=(str, ""),
@@ -35,15 +30,6 @@ env = environ.Env(
 )
 
 environ.Env.read_env(Path(BASE_DIR / ".env"))
-
-SENTRY_DSN = env("SENTRY_DSN")
-if SENTRY_DSN:
-    sentry_sdk.init(
-        dsn=env("SENTRY_DSN"),
-        integrations=[DjangoIntegration()],
-        environment=str(env("SENTRY_ENVIRONMENT")),
-        traces_sample_rate=env("SENTRY_TRACES_SAMPLE_RATE"),
-    )
 
 APP_NAME = "MyDjangoX"
 
