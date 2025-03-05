@@ -2,19 +2,22 @@
 default:
     @just --list
 
+# Set the uv sync command
+uvs := "uv sync --all-extras"
+
 # Set the uv run command
-uvr := "uv run --extra test --locked"
+uvr := "uv run --all-extras --locked"
 
 #Set the uv command to run a tool
 uvt := "uv tool run"
 
 # Sync the package
 sync:
-    uv sync --all-extras --locked
+    {{uvs}} --locked
 
 # Sync and upgrade the package
 sync-up:
-    uv sync --all-extras --upgrade
+    {{uvs}} --upgrade
 
 # Run the Django development server
 run:
