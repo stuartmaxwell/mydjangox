@@ -4,7 +4,7 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 ## Features
 
-- Django 5.1 & Python 3.13
+- Django 5.2 & Python 3.14
 - Basic first app called `website`
 - Basic template with Bootstrap
 - Dockerfile and docker-compose file
