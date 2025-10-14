@@ -3,16 +3,23 @@ name = "mydjangox"
 version = "1.0.0"
 description = "My Django project template. Inspired by Will Vincent's DjangoX."
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 dependencies = [
-  "django>=5.1",
-  "django-debug-toolbar>=5.0",
+  "django>=5.2",
   "django-environ>=0.12",
   "gunicorn>=23.0",
-  "pytest>=8.3",
-  "pytest-django>=4.10",
-  "rich>=13.9",
-  "whitenoise>=6.9",
+  "rich>=14.2",
+  "whitenoise>=6.11",
+]
+
+[dependency-groups]
+dev = [
+  "django-debug-toolbar>=6.0",
+  "pytest>=8.4",
+  "pytest-django>=4.11",
+  "djlint>=1.36.0",
+  "pre-commit>=4.3",
+  "ruff>=0.14",
 ]
 
 [tool.curlylint.rules]
@@ -20,7 +27,7 @@ image_alt = true
 
 [tool.ruff]
 line-length = 120
-target-version = "py313"
+target-version = "py314"
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -33,31 +40,6 @@ ignore = [
   "TD002",  # Missing author in TODO
   "S308",   # suspicious-mark-safe-usage
 ]
-# Allow fix for all enabled rules (when `--fix`) is provided.
-fixable = ["ALL"]
-unfixable = []
-# Allow unused variables when underscore-prefixed.
-dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
-
-[tool.ruff.format]
-# Like Black, use double quotes for strings.
-quote-style = "double"
-# Like Black, indent with spaces, rather than tabs.
-indent-style = "space"
-# Like Black, respect magic trailing commas.
-skip-magic-trailing-comma = false
-# Like Black, automatically detect the appropriate line ending.
-line-ending = "auto"
-# Enable auto-formatting of code examples in docstrings. Markdown,
-# reStructuredText code/literal blocks and doctests are all supported.
-# This is currently disabled by default, but it is planned for this
-# to be opt-out in the future.
-docstring-code-format = false
-# Set the line length limit used when formatting code snippets in
-# docstrings.
-# This only has an effect when the `docstring-code-format` setting is
-# enabled.
-docstring-code-line-length = "dynamic"
 
 [tool.ruff.lint.per-file-ignores]
 "test*" = ["ALL"]
