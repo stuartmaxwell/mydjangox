@@ -75,6 +75,10 @@ format:
 lock:
     uv lock
 
+# Install pre-commit hooks
+pc-install:
+    {{uvt}} pre-commit install
+
 # Upgrade pre-commit hooks
 pc-up:
     {{uvt}} pre-commit autoupdate
