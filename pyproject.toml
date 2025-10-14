@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
   "django>=5.2",
-  "django-environ>=0.12",
+  "environs[django]>=14.3.0",
   "gunicorn>=23.0",
   "rich>=14.2",
   "whitenoise>=6.11",

@@ -2,41 +2,36 @@
 
 from pathlib import Path
 
-import environ
 from django.contrib.messages import constants as messages
+from environs import env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env(
-    # set casting, default value
-    SECRET_KEY=(str, "this_is_just_a_temporary_secret_key"),
-    DEBUG=(bool, True),
-    ALLOWED_HOSTS=(list, ["127.0.0.1"]),
-    EMAIL_HOST=(str, ""),
-    EMAIL_PORT=(str, ""),
-    EMAIL_HOST_USER=(str, ""),
-    EMAIL_HOST_PASSWORD=(str, ""),
-    EMAIL_USE_TLS=(bool, True),
-    DEFAULT_FROM_EMAIL=(str, ""),
-    DB_ENGINE=(str, "django.db.backends.sqlite3"),
-    DB_NAME=(str, "db"),
-    DB_USER=(str, ""),
-    DB_PASSWORD=(str, ""),
-    DB_HOST=(str, ""),
-    DB_PORT=(str, ""),
-    WHITENOISE_STATIC=(bool, True),
-    ADMIN_URL=(str, "admin"),
-    HEALTHCHECK_PATH=(str, "secret-health-check"),
-)
+# The following line isn't necessary if reading environment variables from memory!
+env.read_env()
 
-environ.Env.read_env(Path(BASE_DIR / ".env"))
+SECRET_KEY = env.str("SECRET_KEY", "this_is_just_a_temporary_secret_key")
+DEBUG = env.bool("DEBUG", True)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["127.0.0.1"])
+EMAIL_HOST = env.str("EMAIL_HOST", "")
+EMAIL_PORT = env.str("EMAIL_PORT", "")
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", "")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", True)
+DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", "")
+DB_ENGINE = env.str("DB_ENGINE", "django.db.backends.sqlite3")
+DB_NAME = env.str("DB_NAME", "db")
+DB_USER = env.str("DB_USER", "")
+DB_PASSWORD = env.str("DB_PASSWORD", "")
+DB_HOST = env.str("DB_HOST", "")
+DB_PORT = env.str("DB_PORT", "")
+WHITENOISE_STATIC = env.bool("WHITENOISE_STATIC", True)
+ADMIN_URL = env.str("ADMIN_URL", "admin")
+HEALTHCHECK_PATH = env.str("HEALTHCHECK_PATH", "secret-health-check")
+
 
 APP_NAME = "MyDjangoX"
 
-SECRET_KEY = env("SECRET_KEY")
-DEBUG = env("DEBUG")
-ALLOWED_HOSTS = env("ALLOWED_HOSTS")
-ADMIN_URL = env("ADMIN_URL")
 CSRF_TRUSTED_ORIGINS = [f"https://{domain}" for domain in ALLOWED_HOSTS]
 
 INSTALLED_APPS = [
@@ -62,7 +57,6 @@ MIDDLEWARE = [
 ]
 
 # Whitenoise
-WHITENOISE_STATIC = env("WHITENOISE_STATIC")
 if WHITENOISE_STATIC:
     MIDDLEWARE += [
         "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -105,7 +99,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
-DB_NAME = BASE_DIR / "db" / f"{env('DB_NAME')}.sqlite3" if "sqlite" in env("DB_ENGINE") else env("DB_NAME")
+DB_NAME = BASE_DIR / "db" / f"{DB_NAME}.sqlite3" if "sqlite" in DB_ENGINE else "DB_NAME"
 SQLITE_OPTIONS = {
     "init_command": (
         "PRAGMA foreign_keys=ON;"
@@ -121,15 +115,15 @@ SQLITE_OPTIONS = {
 }
 DATABASES = {
     "default": {
-        "ENGINE": env("DB_ENGINE"),
+        "ENGINE": DB_ENGINE,
         "NAME": DB_NAME,
-        "USER": env("DB_USER"),
-        "PASSWORD": env("DB_PASSWORD"),
-        "HOST": env("DB_HOST"),
-        "PORT": env("DB_PORT"),
+        "USER": DB_USER,
+        "PASSWORD": DB_PASSWORD,
+        "HOST": DB_HOST,
+        "PORT": DB_PORT,
     },
 }
-if "sqlite" in env("DB_ENGINE"):
+if "sqlite" in DB_ENGINE:
     DATABASES["default"].update(SQLITE_OPTIONS)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -165,12 +159,6 @@ STATICFILES_DIRS = [
 
 # Email configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = env("EMAIL_HOST")
-EMAIL_PORT = env("EMAIL_PORT")
-EMAIL_HOST_USER = env("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
-EMAIL_USE_TLS = env("EMAIL_USE_TLS")
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 
 # django-debug-toolbar
 INTERNAL_IPS = ["127.0.0.1"]
@@ -230,6 +218,3 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000  # 1 year
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
-
-# Healthcheck app
-HEALTHCHECK_PATH = env("HEALTHCHECK_PATH")
