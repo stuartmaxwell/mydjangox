@@ -16,6 +16,7 @@ if settings.DEBUG:
 
 urlpatterns += [
     path(f"{settings.ADMIN_URL}/", admin.site.urls),
+    path("accounts/", include("django.contrib.auth.urls")),
     path("healthcheck/", view=include("healthcheck_app.urls")),
     path("", include("website.urls")),
 ]

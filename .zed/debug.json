@@ -1,0 +1,11 @@
+[
+  {
+    "label": "Python: Django",
+    "adapter": "Debugpy",
+    "request": "launch",
+    "python": ".venv/bin/python",
+    "program": "manage.py",
+    "args": ["runserver"],
+    "django": true,
+  },
+]

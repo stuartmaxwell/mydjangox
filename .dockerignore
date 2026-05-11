@@ -20,6 +20,7 @@ Dockerfile*
 .idea
 .vscode
 .editorconfig
+.zed
 
 # Tool configuration
 .mypy_cache/
@@ -27,7 +28,6 @@ Dockerfile*
 .ruff_cache/
 .pre-commit-config.yaml
 .prettierignore
-# pyproject.toml
 pytest.ini
 .dmypy.json
 dmypy.json
@@ -51,3 +51,7 @@ media/
 **/*.sqlite3
 **/*.csv
 **/*.log
+
+# PDM files not required
+pdm.toml
+.pdm-python

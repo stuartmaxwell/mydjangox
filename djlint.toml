@@ -1,5 +1,6 @@
 format_css = true
 format_js = true
-ignore = "T003,H021"
+ignore = "T003,H021,H031,H030,H006"
 indent = 2
 max_line_length = 120
+max_attribute_length = 80

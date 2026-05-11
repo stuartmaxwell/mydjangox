@@ -4,7 +4,7 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 ## Features
 
-- Django 5.2 & Python 3.14
+- Django 6.0 & Python 3.14
 - Basic first app called `website`
 - Basic template with Bootstrap
 - Dockerfile and docker-compose file
@@ -12,10 +12,14 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 ## Requirements
 
-`uv` is required, and `just` is recommended to use the commands in the `justfile`.
+The following tools should be installed before starting:
 
-- `uv` - `curl -LsSf https://astral.sh/uv/install.sh | sh`
-- `just` - `uv tool install rust-just`
+- `pdm` - preferred project manager, install with `curl -sSL https://pdm-project.org/install.sh | bash`
+- `django` - installing Django with `pipx install django` will put the `django-admin` binary on your path.
+- `just` - used for the `justfile` commands. Can be installed with `pipx install rust-just` or with a package manager
+- `djlint` - used for linting and can be installed with `pipx install djlint`
+- `pre-commit` - used for the pre-commit commands and can be installed with `pipx install pre-commit`
+- `ruff` - used for linting and formatting, install with `pipx install ruff`
 
 ## Installation
 
@@ -23,35 +27,21 @@ Inspired by Will Vincent's [DjangoX project](https://github.com/wsvincent/django
 
 1. Create the directory where you want your project to live and change to that directory.
 2. Then, run the following one-liner which will create a django project using the MyDjangoX template:
-    `uvx --from django django-admin startproject --template https://github.com/stuartmaxwell/mydjangox/archive/refs/heads/main.zip mydjangox .`
+    `django-admin startproject --template https://github.com/stuartmaxwell/mydjangox/archive/refs/heads/main.zip mydjangox .`
 3. Run the Django migrations: `just migrate`
 4. Create a superuser: `just createsuperuser`
 5. Start the server: `just run`
 6. Navigate to: <http://127.0.0.1:8000>
 7. Bonus: run `just test` to see if everything is working.
 
-### Old Manual instructions
-
-1. Download and unzip the code: `curl https://codeload.github.com/stuartmaxwell/mydjangox/zip/refs/heads/main -o mydjangox.zip`
-2. Rename the directory from `mydjangox-main` to your project name
-3. Change directory into the repo: `cd <your_project_name>`
-4. Create a virtual environment. This will also download Python if needed: `just venv`
-5. Install requirements: `just sync`
-6. Optional: update requirements: `just sync-up`
-7. Run the Django migrations: `just migrate`
-8. Create a superuser: `just createsuperuser`
-9. Start the server: `just run`
-10. Navigate to: <http://127.0.0.1:8000>
-11. Bonus: run `just test` to see if everything is working.
-
 ## More Configuration
 
-- Rename `env.template` to `.env` and configure the following settings:
+- Rename `env.template` to `.env` and configure the following settings, or just copy the ones you need into a new .env file.
 
   | Env Name            | Env Value                                                                                          |
   | ------------------- | -------------------------------------------------------------------------------------------------- |
+  | DEBUG               | This is `False` by default, so set to `True` for local development.                                |
   | SECRET_KEY          | The Django secret key to add to the `settings.py` file.                                            |
-  | DEBUG               | Ensure this is set to `False` in production.                                                       |
   | ALLOWED_HOSTS       | List of allowed hosts, e.g. `example.com,www.example.com`.                                         |
   | EMAIL_HOST          | Name or IP address of the SMTP server.                                                             |
   | EMAIL_PORT          | The port of the SMTP server.                                                                       |

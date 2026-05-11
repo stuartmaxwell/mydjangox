@@ -3,15 +3,36 @@
     <a class="navbar-brand" href="{% url 'website:index' %}">Website</a>
     <ul class="navbar-nav me-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'website:index' %}">Home</a>
+        <a class="nav-link icon-link" href="{% url 'website:index' %}">
+          {% include "svg/house.svg" %}
+        Home</a>
       </li>
     </ul>
     <ul class="navbar-nav ms-auto">
-      <li class="nav-item">
-        <a class="nav-link icon-link" href="{% url 'admin:index' %}">
-          {% include "svg/gear.svg" %}
-        Admin</a>
-      </li>
+      {% if user.is_authenticated %}
+        {% if user.is_staff %}
+          <li class="nav-item">
+            <a class="nav-link icon-link" href="{% url 'admin:index' %}">
+              {% include "svg/gear.svg" %}
+            Admin</a>
+          </li>
+        {% endif %}
+        <li class="nav-item">
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-danger" type="submit">
+              <span class="align-middle">Log out</span>
+              {% include "svg/box-arrow-right.svg" %}
+            </button>
+          </form>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link icon-link" href="{% url 'login' %}">
+            {% include "svg/box-arrow-in-right.svg" %}
+          Log in</a>
+        </li>
+      {% endif %}
     </ul>
   </div>
 </nav>
