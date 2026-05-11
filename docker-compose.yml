@@ -1,12 +1,16 @@
 services:
   app:
     build: .
-    entrypoint: /app/entrypoint.sh
-    command: uv run --no-cache gunicorn --worker-class uvicorn_worker.UvicornWorker --worker-tmp-dir /dev/shm --workers=2 --max-requests=1000 --max-requests-jitter=50 --bind 0.0.0.0:8000 config.asgi:application
     user: "1000"
     env_file: .env
     volumes:
       - app_db:/app/db
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
 volumes:
   app_db:

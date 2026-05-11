@@ -99,3 +99,11 @@ GitHub.sublime-settings
 
 # Ruff
 .ruff_cache/
+
+# PDM defaults
+*.py[codz]
+__pycache__/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.pdm-python

@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env.read_env()
 
 SECRET_KEY = env.str("SECRET_KEY", "this_is_just_a_temporary_secret_key")
-DEBUG = env.bool("DEBUG", True)
+DEBUG = env.bool("DEBUG", False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["127.0.0.1"])
 EMAIL_HOST = env.str("EMAIL_HOST", "")
 EMAIL_PORT = env.str("EMAIL_PORT", "")
@@ -34,6 +34,8 @@ APP_NAME = "MyDjangoX"
 
 CSRF_TRUSTED_ORIGINS = [f"https://{domain}" for domain in ALLOWED_HOSTS]
 
+# Application definition
+# Django Apps
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -41,6 +43,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+]
+# Third-party Apps
+INSTALLED_APPS += [
+    "crispy_forms",
+    "crispy_bootstrap5",
+]
+# Internal Apps
+INSTALLED_APPS += [
     "healthcheck_app",
     "website",
 ]
@@ -97,6 +107,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
+ASGI_APPLICATION = "config.asgi.application"
 
 # Database
 DB_NAME = BASE_DIR / "db" / f"{DB_NAME}.sqlite3" if "sqlite" in DB_ENGINE else "DB_NAME"
@@ -127,6 +138,7 @@ if "sqlite" in DB_ENGINE:
     DATABASES["default"].update(SQLITE_OPTIONS)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Authentication
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": ("django.contrib.auth.password_validation.UserAttributeSimilarityValidator"),
@@ -141,6 +153,8 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+LOGIN_REDIRECT_URL = "website:index"
+LOGOUT_REDIRECT_URL = "website:index"
 
 # Internationalization
 LANGUAGE_CODE = "en-nz"
@@ -158,12 +172,17 @@ STATICFILES_DIRS = [
 ]
 
 # Email configuration
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # django-debug-toolbar
 INTERNAL_IPS = ["127.0.0.1"]
 
-# The following constants let us use Bootstrap alerts with messages
+# Theme-related config
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 MESSAGE_TAGS = {
     messages.DEBUG: "alert-info",
     messages.INFO: "alert-info",
