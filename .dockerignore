@@ -37,11 +37,11 @@ Caddyfile*
 
 # Project files not required
 docs/
-staticfiles/
+staticfiles/*
 env.template
 requirements.in
 README.md
-media/
+media/*
 .env
 
 # Macos yuck

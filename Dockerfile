@@ -4,9 +4,6 @@ ARG PYTHON_BASE=3.14-slim
 FROM python:$PYTHON_BASE AS builder
 ENV PDM_CHECK_UPDATE=false
 
-# install s5cmd
-COPY --from=peakcom/s5cmd:latest /s5cmd /usr/local/bin/s5cmd
-
 # Build Python Environment
 RUN pip install -U pdm
 WORKDIR /app
@@ -28,9 +25,8 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man \
   && apt-get clean
 
-# Copy the static binaries
-COPY --from=builder /usr/local/bin/s5cmd /usr/local/bin/s5cmd
-COPY --from=builder /usr/bin/infisical /usr/bin/infisical
+# install s5cmd
+COPY --from=peakcom/s5cmd:latest /s5cmd /usr/local/bin/s5cmd
 
 # Create the user first (This layer stays cached unless you change the name)
 RUN useradd -m appuser
@@ -46,10 +42,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 # Copy the application code (Set ownership during the copy)
 COPY --chown=appuser:appuser . .
-
-# Fix permissions
-RUN chmod +x /app/backup.sh \
-  && chmod +x /app/entrypoint.sh
 
 USER appuser
 EXPOSE 8000
