@@ -31,6 +31,8 @@ Dockerfile*
 pytest.ini
 .dmypy.json
 dmypy.json
+ruff.toml
+djlint.toml
 
 # Caddy config
 Caddyfile*
