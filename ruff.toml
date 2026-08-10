@@ -14,6 +14,7 @@ ignore = [
   "PGH003", # Use specific rule codes when ignoring type issues
   "COM812", # Trailing comma missing
   "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+  "CPY001", # Missing copyright notice at top of file
 ]
 
 [lint.per-file-ignores]

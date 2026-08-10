@@ -9,7 +9,7 @@ authors = [
 license = {text = "MIT"}
 requires-python = "==3.14.*"
 dependencies = [
-  "django~=6.0.0",
+  "django~=6.1.0",
   "environs[django]~=15.0",
   "gunicorn~=25.3",
   "rich~=15.0",
@@ -31,3 +31,10 @@ distribution = false
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings_testing"
 python_files = "tests.py test_*.py *_tests.py"
+
+[tool.djangofmt]
+line-length = 120
+indent-width = 2
+profile = "django"
+html-void-self-closing = "never"
+preserve-unquoted-attrs = false

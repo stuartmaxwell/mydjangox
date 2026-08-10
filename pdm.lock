@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:22c62cb86f831f431492c367774f155db353982d9306a8d4f45faead96b078f0"
+content_hash = "sha256:4036c7cd909007595afae26e945e7c336f1d186f632cfd336848b5058418308b"
 
 [[metadata.targets]]
 requires_python = "==3.14.*"
@@ -77,7 +77,7 @@ files = [
 
 [[package]]
 name = "django"
-version = "6.0.4"
+version = "6.1"
 requires_python = ">=3.12"
 summary = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
 groups = ["default", "dev"]
@@ -87,8 +87,8 @@ dependencies = [
     "tzdata; sys_platform == \"win32\"",
 ]
 files = [
-    {file = "django-6.0.4-py3-none-any.whl", hash = "sha256:14359c809fc16e8f81fd2b59d7d348e4d2d799da6840b10522b6edf7b8afc1da"},
-    {file = "django-6.0.4.tar.gz", hash = "sha256:8cfa2572b3f2768b2e84983cf3c4811877a01edb64e817986ec5d60751c113ac"},
+    {file = "django-6.1-py3-none-any.whl", hash = "sha256:6c132cd980c9392b06807d4ca52d72530d631dc65a85d9dacede00a780cefbbe"},
+    {file = "django-6.1.tar.gz", hash = "sha256:86a2aacd59b817e4d6ac2ebfe22356c58f66f7b24e503f71b7c2fead677ee48b"},
 ]
 
 [[package]]
@@ -103,7 +103,7 @@ files = [
 
 [[package]]
 name = "django-crispy-forms"
-version = "2.6"
+version = "2.7"
 requires_python = ">=3.10"
 summary = "Best way to have Django DRY forms"
 groups = ["default"]
@@ -111,8 +111,8 @@ dependencies = [
     "django>=5.2",
 ]
 files = [
-    {file = "django_crispy_forms-2.6-py3-none-any.whl", hash = "sha256:8ee0ae28b6b0ac41ff48a65944480c049fe8d1b0047086874fd7efabf4ec1374"},
-    {file = "django_crispy_forms-2.6.tar.gz", hash = "sha256:4921a1087c6cd4f9fa3c139654c1de1c1c385f8bd6729aaee530bc0121ab4b93"},
+    {file = "django_crispy_forms-2.7-py3-none-any.whl", hash = "sha256:42a7ecb05ac3fd050d006dfe7aeceb7f318c30e5b5124ff619e2be252f36f096"},
+    {file = "django_crispy_forms-2.7.tar.gz", hash = "sha256:4c59bed60417375cba26cebb2c67ab350b655934670270b1c89dbcd7e60f1b4c"},
 ]
 
 [[package]]
@@ -132,7 +132,7 @@ files = [
 
 [[package]]
 name = "environs"
-version = "15.0.1"
+version = "15.1.0"
 requires_python = ">=3.10"
 summary = "simplified environment variable parsing"
 groups = ["default"]
@@ -142,13 +142,13 @@ dependencies = [
     "typing-extensions; python_version < \"3.11\"",
 ]
 files = [
-    {file = "environs-15.0.1-py3-none-any.whl", hash = "sha256:a6aeb3e18d5649a4e74f62984f0d84ec869269cff588a43685272c72b5b8979b"},
-    {file = "environs-15.0.1.tar.gz", hash = "sha256:638106bfb5d8c9a13ee51c23a9f2416baf9a748c8e537fec771102927cd02aa8"},
+    {file = "environs-15.1.0-py3-none-any.whl", hash = "sha256:6f1f83181caa98b1301a4fc96ace072e94b725409422ccd47b52fbc8d2ce7aa7"},
+    {file = "environs-15.1.0.tar.gz", hash = "sha256:268597f56e74d3304b8724db3d3d94db54427d7a7f17153e6b22520a6f0cfb9e"},
 ]
 
 [[package]]
 name = "environs"
-version = "15.0.1"
+version = "15.1.0"
 extras = ["django"]
 requires_python = ">=3.10"
 summary = "simplified environment variable parsing"
@@ -157,11 +157,11 @@ dependencies = [
     "dj-database-url",
     "dj-email-url",
     "django-cache-url",
-    "environs==15.0.1",
+    "environs==15.1.0",
 ]
 files = [
-    {file = "environs-15.0.1-py3-none-any.whl", hash = "sha256:a6aeb3e18d5649a4e74f62984f0d84ec869269cff588a43685272c72b5b8979b"},
-    {file = "environs-15.0.1.tar.gz", hash = "sha256:638106bfb5d8c9a13ee51c23a9f2416baf9a748c8e537fec771102927cd02aa8"},
+    {file = "environs-15.1.0-py3-none-any.whl", hash = "sha256:6f1f83181caa98b1301a4fc96ace072e94b725409422ccd47b52fbc8d2ce7aa7"},
+    {file = "environs-15.1.0.tar.gz", hash = "sha256:268597f56e74d3304b8724db3d3d94db54427d7a7f17153e6b22520a6f0cfb9e"},
 ]
 
 [[package]]
@@ -264,7 +264,7 @@ files = [
 
 [[package]]
 name = "pytest"
-version = "9.0.3"
+version = "9.1.1"
 requires_python = ">=3.10"
 summary = "pytest: simple powerful testing with Python"
 groups = ["dev"]
@@ -278,13 +278,13 @@ dependencies = [
     "tomli>=1; python_version < \"3.11\"",
 ]
 files = [
-    {file = "pytest-9.0.3-py3-none-any.whl", hash = "sha256:2c5efc453d45394fdd706ade797c0a81091eccd1d6e4bccfcd476e2b8e0ab5d9"},
-    {file = "pytest-9.0.3.tar.gz", hash = "sha256:b86ada508af81d19edeb213c681b1d48246c1a91d304c6c81a427674c17eb91c"},
+    {file = "pytest-9.1.1-py3-none-any.whl", hash = "sha256:37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c"},
+    {file = "pytest-9.1.1.tar.gz", hash = "sha256:1088fbde8f2b49d95a549a195707afa7a76a3ce9bcadc26b6d71f0ffda5fe313"},
 ]
 
 [[package]]
 name = "pytest-django"
-version = "4.12.0"
+version = "4.13.0"
 requires_python = ">=3.10"
 summary = "A Django plugin for pytest."
 groups = ["dev"]
@@ -292,8 +292,8 @@ dependencies = [
     "pytest>=7.0.0",
 ]
 files = [
-    {file = "pytest_django-4.12.0-py3-none-any.whl", hash = "sha256:3ff300c49f8350ba2953b90297d23bf5f589db69545f56f1ec5f8cff5da83e85"},
-    {file = "pytest_django-4.12.0.tar.gz", hash = "sha256:df94ec819a83c8979c8f6de13d9cdfbe76e8c21d39473cfe2b40c9fc9be3c758"},
+    {file = "pytest_django-4.13.0-py3-none-any.whl", hash = "sha256:09374c12d947ca0f99e33726bcb720a6d0124f67058e1130586372bd109493e3"},
+    {file = "pytest_django-4.13.0.tar.gz", hash = "sha256:2316e3f63e3bc799deb4212830e39b2ef1dcc3b2d8688060f1d0217db6a56ebe"},
 ]
 
 [[package]]

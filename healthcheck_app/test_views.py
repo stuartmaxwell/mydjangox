@@ -1,9 +1,12 @@
+"""Tests for the healthcheck_app app."""
+
 import pytest
 from django.urls import reverse
 
 
 @pytest.mark.django_db
 def test_health_check_view_response_format(client):
+    """Basic tests."""
     url = reverse("healthcheck_app:healthcheck")
     response = client.get(url)
     # Verify response is JSON
