@@ -46,6 +46,7 @@ INSTALLED_APPS += [
 ]
 # Internal Apps
 INSTALLED_APPS += [
+    "data",
     "healthcheck_app",
     "website",
 ]
@@ -139,6 +140,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Authentication
+AUTH_USER_MODEL = "data.User"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": ("django.contrib.auth.password_validation.UserAttributeSimilarityValidator"),
