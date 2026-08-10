@@ -1,11 +1,12 @@
 {% extends "base.html" %}
-{% block title %}Website{% endblock %}
+{% block title %}MyDjangoX{% endblock %}
 {% block main %}
   <h1>Welcome to MyDjangoX!</h1>
   <p>This is the homepage of the website.</p>
   {% if user.is_authenticated %}
     <p>
-      You can configure a health check for the website by visiting the <a href="{% url 'healthcheck_app:healthcheck' %}">healthcheck</a> page.
+      You can view a health check for the website by visiting the <a href="{% url 'healthcheck_app:healthcheck' %}"
+      >healthcheck</a> page.
     </p>
   {% endif %}
 {% endblock main %}

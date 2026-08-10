@@ -1,20 +1,20 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'website:index' %}">Website</a>
+    <a class="navbar-brand" href="{% url 'website:index' %}">MyDjangoX</a>
     <ul class="navbar-nav me-auto">
       <li class="nav-item">
-        <a class="nav-link icon-link" href="{% url 'website:index' %}">
-          {% include "svg/house.svg" %}
-        Home</a>
+        <a class="nav-link" href="{% url 'website:index' %}">
+          <i class="bi bi-house"></i>
+          Home</a>
       </li>
     </ul>
     <ul class="navbar-nav ms-auto">
       {% if user.is_authenticated %}
         {% if user.is_staff %}
           <li class="nav-item">
-            <a class="nav-link icon-link" href="{% url 'admin:index' %}">
-              {% include "svg/gear.svg" %}
-            Admin</a>
+            <a class="nav-link" href="{% url 'admin:index' %}">
+              <i class="bi bi-gear"></i>
+              Admin</a>
           </li>
         {% endif %}
         <li class="nav-item">
@@ -22,15 +22,15 @@
             {% csrf_token %}
             <button class="btn btn-danger" type="submit">
               <span class="align-middle">Log out</span>
-              {% include "svg/box-arrow-right.svg" %}
+              <i class="bi bi-box-arrow-right"></i>
             </button>
           </form>
         </li>
       {% else %}
         <li class="nav-item">
-          <a class="nav-link icon-link" href="{% url 'login' %}">
-            {% include "svg/box-arrow-in-right.svg" %}
-          Log in</a>
+          <a class="nav-link" href="{% url 'login' %}">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Log in</a>
         </li>
       {% endif %}
     </ul>

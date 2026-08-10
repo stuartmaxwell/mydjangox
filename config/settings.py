@@ -7,24 +7,20 @@ from environs import env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # The following line isn't necessary if reading environment variables from memory!
 env.read_env()
 
 SECRET_KEY = env.str("SECRET_KEY", "this_is_just_a_temporary_secret_key")
 DEBUG = env.bool("DEBUG", False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", ["127.0.0.1"])
-EMAIL_HOST = env.str("EMAIL_HOST", "")
-EMAIL_PORT = env.str("EMAIL_PORT", "")
-EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", "")
-EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", True)
 DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", "")
 DB_ENGINE = env.str("DB_ENGINE", "django.db.backends.sqlite3")
+DB_HOST = env.str("DB_HOST", "")
+DB_PORT = env.str("DB_PORT", "")
 DB_NAME = env.str("DB_NAME", "db")
 DB_USER = env.str("DB_USER", "")
 DB_PASSWORD = env.str("DB_PASSWORD", "")
-DB_HOST = env.str("DB_HOST", "")
-DB_PORT = env.str("DB_PORT", "")
 WHITENOISE_STATIC = env.bool("WHITENOISE_STATIC", True)
 ADMIN_URL = env.str("ADMIN_URL", "admin")
 HEALTHCHECK_PATH = env.str("HEALTHCHECK_PATH", "secret-health-check")
@@ -32,7 +28,6 @@ HEALTHCHECK_PATH = env.str("HEALTHCHECK_PATH", "secret-health-check")
 
 APP_NAME = "MyDjangoX"
 
-CSRF_TRUSTED_ORIGINS = [f"https://{domain}" for domain in ALLOWED_HOSTS]
 
 # Application definition
 # Django Apps
@@ -51,6 +46,7 @@ INSTALLED_APPS += [
 ]
 # Internal Apps
 INSTALLED_APPS += [
+    "data",
     "healthcheck_app",
     "website",
 ]
@@ -59,6 +55,7 @@ if DEBUG:
     INSTALLED_APPS += [
         "debug_toolbar",
     ]
+
 
 # The middleware section is broken up to allow various middleware to be
 # added in different environments and in different orders.
@@ -88,7 +85,9 @@ MIDDLEWARE += [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 ROOT_URLCONF = "config.urls"
+
 
 TEMPLATES = [
     {
@@ -105,6 +104,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
@@ -138,7 +138,9 @@ if "sqlite" in DB_ENGINE:
     DATABASES["default"].update(SQLITE_OPTIONS)
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
 # Authentication
+AUTH_USER_MODEL = "data.User"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": ("django.contrib.auth.password_validation.UserAttributeSimilarityValidator"),
@@ -156,11 +158,13 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGIN_REDIRECT_URL = "website:index"
 LOGOUT_REDIRECT_URL = "website:index"
 
+
 # Internationalization
 LANGUAGE_CODE = "en-nz"
 TIME_ZONE = "Pacific/Auckland"
 USE_I18N = True
 USE_TZ = True
+
 
 # The path that the static files will be served from
 STATIC_URL = "/static/"
@@ -171,14 +175,34 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+# Media uploads for untrusted files
+MEDIA_ROOT = "media"
+MEDIA_URL = "/media/"
+
+
 # Email configuration
+# https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 if DEBUG:
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    MAILERS_CONFIG = {
+        "BACKEND": "django.core.mail.backends.console.EmailBackend",
+    }
 else:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    MAILERS_CONFIG = {
+        "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+        "OPTIONS": {
+            "host": env.str("EMAIL_HOST", ""),
+            "port": env.str("EMAIL_PORT", ""),
+            "use_tls": env.bool("EMAIL_USE_TLS", True),
+            "username": env.str("EMAIL_HOST_USER", ""),
+            "password": env.str("EMAIL_HOST_PASSWORD", ""),
+        },
+    }
+MAILERS = {"default": MAILERS_CONFIG}
+
 
 # django-debug-toolbar
 INTERNAL_IPS = ["127.0.0.1"]
+
 
 # Theme-related config
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -191,9 +215,6 @@ MESSAGE_TAGS = {
     messages.ERROR: "alert-danger",
 }
 
-# Media uploads for untrusted files
-MEDIA_ROOT = "media"
-MEDIA_URL = "/media/"
 
 # Logging configuration
 LOGGING = {
@@ -229,9 +250,13 @@ LOGGING = {
     },
 }
 
+
+CSRF_TRUSTED_ORIGINS = [f"https://{domain}" for domain in ALLOWED_HOSTS]
+
 # Use secure cookies
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
 
 # HSTS settings
 SECURE_HSTS_SECONDS = 31536000  # 1 year

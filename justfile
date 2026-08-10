@@ -2,13 +2,17 @@
 default:
     @just --list
 
-# Create and/or update the lockfile with the latest packages. Note that the "--exclude-newer 7d" option will be added when released.
+# Create and/or update the lockfile with the latest packages.
 lock:
-  pdm lock --exclude-newer 7d
+  pdm lock
 
 # Install/sync packages in the virtual environment
 sync:
   pdm sync --clean
+
+# Update all packages in pyproject.toml
+update:
+    pdm update --top --unconstrained
 
 # Run the Django development server
 run:
