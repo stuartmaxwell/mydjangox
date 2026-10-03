@@ -38,3 +38,7 @@ indent-width = 2
 profile = "django"
 html-void-self-closing = "never"
 preserve-unquoted-attrs = false
+[tool.djangofmt.lint]
+select = ["category:all"]
+ignore = []
+fix = true

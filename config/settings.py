@@ -135,7 +135,6 @@ DATABASES = {
 }
 if "sqlite" in DB_ENGINE:
     DATABASES["default"].update(SQLITE_OPTIONS)
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Authentication
