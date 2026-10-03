@@ -10,19 +10,19 @@ license = {text = "MIT"}
 requires-python = "==3.14.*"
 dependencies = [
   "django~=6.1.0",
-  "environs[django]~=15.0",
-  "gunicorn~=25.3",
+  "environs[django]~=15.2",
+  "gunicorn~=26.2",
   "rich~=15.0",
   "whitenoise~=6.12",
-  "django-crispy-forms~=2.6",
-  "crispy-bootstrap5~=2026.3",
+  "django-crispy-forms~=2.7",
+  "crispy-bootstrap5~=2026.9",
 ]
 
 [dependency-groups]
 dev = [
-    "django-debug-toolbar~=6.3",
-    "pytest~=9.0",
-    "pytest-django~=4.12",
+    "django-debug-toolbar~=8.0",
+    "pytest~=9.1",
+    "pytest-django~=4.14",
 ]
 
 [tool.pdm]

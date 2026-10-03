@@ -13,13 +13,13 @@ repos:
       - id: check-case-conflict
       - id: check-merge-conflict
   - repo: https://github.com/adamchainz/django-upgrade
-    rev: "1.31.1" # replace with latest tag on GitHub
+    rev: "1.33.0" # replace with latest tag on GitHub
     hooks:
       - id: django-upgrade
-        args: [--target-version, "5.1"] # Replace with Django version
+        args: [--target-version, "6.1"] # Replace with Django version
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.16.2
+    rev: v0.16.10
     hooks:
       - id: ruff-check
         args: [--fix]
@@ -32,8 +32,12 @@ repos:
           - css
         additional_dependencies:
           - prettier@2.5.1
+  - repo: https://github.com/adamchainz/djade-pre-commit
+    rev: "1.9.0" # Replace with the latest tag on GitHub
+    hooks:
+      - id: djade
   - repo: https://github.com/UnknownPlatypus/djangofmt-pre-commit
-    rev: v0.2.12
+    rev: v1.0.0
     hooks:
       - id: djangofmt
       - id: djangofmt-svg

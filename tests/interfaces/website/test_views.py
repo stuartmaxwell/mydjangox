@@ -10,4 +10,4 @@ def test_index_view(client):
     response = client.get(url)
     assert response.status_code == 200
     assert b"Welcome" in response.content
-    assertTemplateUsed(response, "website/index.html")
+    assertTemplateUsed(response, "website/home.html")

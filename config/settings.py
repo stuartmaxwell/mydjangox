@@ -48,7 +48,6 @@ INSTALLED_APPS += [
 INSTALLED_APPS += [
     "data",
     "healthcheck_app",
-    "website",
 ]
 
 if DEBUG:
@@ -155,6 +154,7 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "website:index"
 LOGOUT_REDIRECT_URL = "website:index"
 

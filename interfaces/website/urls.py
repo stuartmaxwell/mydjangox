@@ -2,10 +2,10 @@
 
 from django.urls import path
 
-from website.views import index
+from interfaces.website import views
 
 app_name = "website"
 
 urlpatterns = [
-    path("", index, name="index"),
+    path("", views.HomeView.as_view(), name="index"),
 ]
