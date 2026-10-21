@@ -2,10 +2,11 @@
 
 # Run using cron to backup db every hour
 # Ensure the following environment variables are set:
+#  - DB_NAME
 #  - AWS_ACCESS_KEY_ID
 #  - AWS_SECRET_ACCESS_KEY
-#  - AWS_ENDPOINT_URL
-#  - S3_BUCKET
+#  - BACKUPS_S3_ENDPOINT
+#  - BACKUPS_S3_BUCKET
 
 set -euf -o pipefail
 
@@ -36,20 +37,19 @@ echo "Remove backup file..."
 rm "${BACKUP_FILE}"
 
 # Upload to S3
-echo "Hourly backup."  # Each hour is overwritten in a day's time
-echo "Uploading ${TAR_FILE} to S3: s3://${S3_BUCKET}/backup-${DB_NAME}-${HOUR}.tar.gz"
-s5cmd --endpoint-url ${AWS_ENDPOINT_URL} cp "${TAR_FILE}" "s3://${S3_BUCKET}/backup-${DB_NAME}-${HOUR}.tar.gz"
-
-echo "Daily backup."  # Each day is overwritten in a month's time
-if [ "${HOUR}" == "00" ]; then
-    echo "Uploading ${TAR_FILE} to S3: s3://${S3_BUCKET}/backup-${DB_NAME}-${DAY}-${HOUR}.tar.gz"
-    s5cmd --endpoint-url ${AWS_ENDPOINT_URL} cp "${TAR_FILE}" "s3://${S3_BUCKET}/backup-${DB_NAME}-${DAY}-${HOUR}.tar.gz"
-fi
-
-echo "Monthly backup."  # Each month is overwritten in a year's time
 if [ "${HOUR}" == "00" ] && [ "${DAY}" == "01" ]; then
-    echo "Uploading ${TAR_FILE} to S3: s3://${S3_BUCKET}/backup-${DB_NAME}-${MONTH}-${DAY}-${HOUR}.tar.gz"
-    s5cmd --endpoint-url ${AWS_ENDPOINT_URL} cp "${TAR_FILE}" "s3://${S3_BUCKET}/backup-${DB_NAME}-${MONTH}-${DAY}-${HOUR}.tar.gz"
+    echo "Performing a monthly backup."  # Each month is overwritten in a year's time
+    SUFFIX="${HOUR}-${DAY}-${MONTH}"
+elif [ "${HOUR}" == "00" ]; then
+    echo "Performing a daily backup."  # Each day is overwritten in a month's time
+    SUFFIX="${HOUR}-${DAY}"
+else
+    echo "Performing an hourly backup."  # Each hour is overwritten in a day's time
+    SUFFIX="${HOUR}"
 fi
+
+DESTINATION="s3://${BACKUPS_S3_BUCKET}/backup-${DB_NAME}-${SUFFIX}.tar.gz"
+echo "Uploading ${TAR_FILE} to S3: ${DESTINATION}"
+s5cmd --endpoint-url "${BACKUPS_S3_ENDPOINT}" cp "${TAR_FILE}" "${DESTINATION}"
 
 echo "Backup complete."

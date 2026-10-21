@@ -1,13 +1,13 @@
 [project]
 name = "mydjangox"
-version = "1.0.0"
+version = "6.1.0"
 description = "My Django project template. Inspired by Will Vincent's DjangoX."
 readme = "README.md"
 authors = [
     {name = "Stuart Maxwell", email = "stuart@amanzi.nz"},
 ]
 license = {text = "MIT"}
-requires-python = "==3.14.*"
+requires-python = "==3.15.*"
 dependencies = [
   "django~=6.1.0",
   "environs[django]~=15.2",
